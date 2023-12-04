@@ -115,7 +115,7 @@ int countQueuedElements(const QUEUE* q)
 	if (q == NULL || q->memory_begin == NULL) return 0;
 
 	int max_counts = getMaxCount(q);
-	return (q->tail + max_counts - q->head) % max_counts;
+	return (q->tail + max_counts - q->head) % max_counts;	//変更した
 }
 
 // 挿入可能なデータ数を得る
