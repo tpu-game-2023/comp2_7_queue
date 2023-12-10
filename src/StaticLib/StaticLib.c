@@ -34,17 +34,12 @@ void finalize(QUEUE* q)
 // valの値をキューに入れる。実行の成否を返す
 bool enqueue(QUEUE* q, int val)
 {
-	if (q == NULL || countQueueableElements(q) == 0) return false;
-	/*if (q->head == q->tail)
-	{
-		q->head = q->memory_begin;
-		q->tail = q->memory_begin;
-	}*/
+	if (q == NULL || countQueueableElements(q) == 0)
+		return false;
 	*q->tail = val;
-	q->tail ++;
+	q->tail++;
 	if (q->tail == q->memory_end)
 		q->tail = q->memory_begin;
-
 	return true;
 }
 
@@ -52,8 +47,7 @@ bool enqueue(QUEUE* q, int val)
 // addrから始まるnum個の整数をキューに入れる。実行の成否を返す
 bool enqueue_array(QUEUE* q, int* addr, int num)
 {
-	if (q == NULL || addr == NULL || num <= 0 || num > countQueuedElements(q)) return false;
-
+	if (q == NULL || addr == NULL || num <= 0 || num > countQueueableElements(q)) return false;
 	for (int i = 0; i < num; i++)
 	{
 		enqueue(q, addr[i]);
@@ -71,7 +65,7 @@ int dequeue(QUEUE* q)
 	if (q == NULL || q->head == q->tail || q->head == NULL) return 0;
 	int data = *q->head;
 	//*q->head = NULL;
-	q->head ++;
+	q->head++;
 	if (q->head == q->memory_end)
 		q->head = q->memory_begin;
 	return data;
@@ -121,7 +115,7 @@ int countQueuedElements(const QUEUE* q)
 	if (q == NULL || q->memory_begin == NULL) return 0;
 
 	int max_counts = getMaxCount(q);
-	return (q->head + max_counts - q->tail) % max_counts;
+	return (q->tail + max_counts - q->head) % max_counts;
 }
 
 // 挿入可能なデータ数を得る
