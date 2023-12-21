@@ -10,11 +10,10 @@ extern "C" {
 
 typedef struct
 {
-	int* head;
-	int* tail;
-
-	int* memory_begin;
-	int* memory_end;
+	int head;
+	int tail;
+	int max;
+	int* data;
 }QUEUE;
 
 //               head           tail
